@@ -13,6 +13,7 @@ public class GamePanel extends JPanel implements MouseListener{
     private static final int REFRESH_RATE = 30;
 	public List<Target> targets;
 	private TargetArea box;
+	private Player player;
     private Score scores;
 	private int areaWidth;
 	private int areaHeight;
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel implements MouseListener{
 	private int t = 2; // banyak warna
 	private Color[] color = { Color.GREEN, Color.RED};
 	private int score = 0;
+	private Random rand;
     
     public GamePanel(int width, int height) {
 		this.areaWidth = width;
@@ -29,15 +31,15 @@ public class GamePanel extends JPanel implements MouseListener{
 		this.setPreferredSize(new Dimension(areaWidth, areaHeight));
 
 		this.targets= new ArrayList<Target>();
-		radius = 50;
-		speed = 5;
+		rand = new Random();
+		radius = rand.nextInt()%21+30;
+		speed = rand.nextInt()%26+5;
 
-        Random rand = new Random();
 		makeTarget(color[rand.nextInt(t)]);
 
-		box = new TargetArea(0, 0, width, height-50, Color.BLACK, Color.WHITE);
+		box = new TargetArea(0, 0, width, height-30, Color.BLACK, Color.WHITE);
         scores = new Score(score, width, height);
-
+        player = new Player("Anto", scores, width, height);
         this.addMouseListener(this);
 		this.setFocusable(true);
 		startThread();
@@ -102,19 +104,12 @@ public class GamePanel extends JPanel implements MouseListener{
 			target.draw(g);
 		}
         scores.draw(g);
+        player.draw(g);
 	}
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
-        boolean intersect = false;
-
-        intersect = this.targets.get(0).intersect(e.getX(), e.getY());
-        
-        if(intersect == true){
-            updateScore();
-        }
-        
+        //DO Something
     }
 
     @Override
@@ -131,8 +126,26 @@ public class GamePanel extends JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+    	if(SwingUtilities.isMiddleMouseButton(e) && e.getClickCount() == 1) {
+    		player.reloadAmmo();
+    	} else {
+    		boolean intersect = false;
+    		
+    		intersect = this.targets.get(0).intersect(e.getX(), e.getY());
+    		if(intersect == true && player.getAmmo()>0){
+    			if(SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 1) {
+    				if(player.getAmmo()>0) {
+    					updateScore();
+    				}
+    			}
+    			clearTarget();
+    			radius = Math.abs(rand.nextInt())%11+40;
+    			speed = Math.abs(rand.nextInt())%4+5;
+    			makeTarget(color[rand.nextInt(t)]);
+    		}
+    		player.useAmmo();   		
+    	}
+		repaint();
     }
 
     @Override
