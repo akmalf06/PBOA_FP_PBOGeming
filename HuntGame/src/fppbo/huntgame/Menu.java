@@ -1,20 +1,34 @@
 package fppbo.huntgame;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 
-import javax.swing.RepaintManager;
 
 public class Menu{
 
+    private final Font ButtonFont = new Font("Helvetica", Font.BOLD, 30);
+    private final Font TitleFont = new Font("Helvetica", Font.BOLD, 50);
+
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+        g.fillRect(1, 1, GamePanel.WIDTH, GamePanel.HEIGHT);
+
         g.setColor(Color.WHITE);
-        g.drawRect(GamePanel.WIDTH/2 - 75, GamePanel.HEIGHT/2 - 25, 150, 50);
-        g.drawString("PLAY", GamePanel.WIDTH/2, GamePanel.HEIGHT/2);
-        
+        g.setFont(TitleFont);
+        g.drawString("AIM BOT", GamePanel.WIDTH/2 - 100, 150);
+
+        makeButton("PLAY", GamePanel.WIDTH/2 - 75, 225, 150, 50, g);
+        makeButton(" EXIT", GamePanel.WIDTH/2 - 75, 325, 150, 50, g);
 	}
+
+    private void makeButton(String button, int x, int y, int width, int height, Graphics g){
+        g.setColor(Color.WHITE);
+        g.drawRect(x, y, width, height);
+        g.setFont(ButtonFont);
+        g.drawString(button, x+35, y+35);
+    }
+
 
     public boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height){
         if((mouseX > x && mouseX < x + width) && (mouseY > y && mouseY < y + height)){

@@ -1,12 +1,16 @@
 package fppbo.huntgame;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Random;
-import javax.swing.*;
-
-import java.util.List;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class GamePanel extends JPanel implements MouseListener{
 
@@ -159,12 +163,14 @@ public class GamePanel extends JPanel implements MouseListener{
 			repaint();
 		}else if(gameState == STATE.Menu){
 			if(GamePanel.gameState == STATE.Menu){
-				boolean MouseOver = menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, GamePanel.HEIGHT/2 - 25, 150, 50);
 				
-				if( MouseOver == true){
+				
+				if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 225, 150, 50) == true){
 					GamePanel.gameState = STATE.Game;
 					Init();
 					startThread();
+				}else if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 325, 150, 50) == true){
+					System.exit(0);
 				}
 			}
 		}
