@@ -10,7 +10,7 @@ public class Main {
 			public void run() {
 				JFrame frame = new JFrame("Bouncing Ball");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setContentPane(new GamePanel(500, 500)); // 500 500
+				frame.setContentPane(new GamePanel());
 				frame.pack();
 				frame.setVisible(true);
 			}
