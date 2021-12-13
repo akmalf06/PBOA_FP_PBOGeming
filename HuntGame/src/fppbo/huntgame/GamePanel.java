@@ -2,17 +2,22 @@ package fppbo.huntgame;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class GamePanel extends JPanel implements MouseListener{
+public class GamePanel extends JPanel implements MouseListener, KeyListener{
 
     private static final int REFRESH_RATE = 30;
 	public List<Target> targets;
@@ -20,6 +25,9 @@ public class GamePanel extends JPanel implements MouseListener{
 	private Player player;
     private Score scores;
 	private Menu menu;
+	private Timer timer;
+	private Over over;
+	private int time;
     private int radius;
 	private int speed;
 
@@ -42,15 +50,29 @@ public class GamePanel extends JPanel implements MouseListener{
 		makeTarget(color[rand.nextInt(t)]);
 		
 		menu = new Menu();
-
+		time = 60;
+		
         this.addMouseListener(this);
+        this.addKeyListener(this);
 		this.setFocusable(true);
 	}
 
 	private void Init(){
 		box = new TargetArea(0, 0, WIDTH, HEIGHT-30, Color.BLACK, Color.WHITE);
         scores = new Score(score, WIDTH, HEIGHT);
+		over = new Over(scores);
         player = new Player("Anto", scores, WIDTH, HEIGHT);
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				time--;
+				if(time<0) {
+					timer.cancel();
+				}
+			}
+		}, 0, 1000);
 	}
 
     private void makeTarget(Color color) {
@@ -83,6 +105,11 @@ public class GamePanel extends JPanel implements MouseListener{
 			public void run() {
 				
 				while (true) {
+					if(time<0) {
+						GamePanel.gameState = STATE.Over;
+						repaint();
+						break;
+					}
 					for (Target b1 : targets) {
 						b1.edgeCollide(box);
 
@@ -108,17 +135,23 @@ public class GamePanel extends JPanel implements MouseListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if(gameState == STATE.Game){
+		if(gameState == STATE.Game||gameState == STATE.Over){
 			box.draw(g);
+			Font smallFont = new Font("Helvetica", Font.BOLD, 14);
+			g.setFont(smallFont);
+	        g.setColor(new Color(96, 128, 255));
+			g.drawString("Time: " + time, WIDTH/2-30, HEIGHT - 10);
 			for (Target target : targets) {
 				target.draw(g);
 			}
 			scores.draw(g);
 			player.draw(g);
+			if(gameState == STATE.Over) {
+				over.draw(g);				
+			}
 		}else if(gameState == STATE.Menu){
 			menu.draw(g);
-		}
-		
+		} 
 	}
 
     @Override
@@ -141,25 +174,21 @@ public class GamePanel extends JPanel implements MouseListener{
     @Override
     public void mousePressed(MouseEvent e) {
 		if(gameState == STATE.Game){
-			if(SwingUtilities.isMiddleMouseButton(e) && e.getClickCount() == 1) {
-				player.reloadAmmo();
-			} else {
-				boolean intersect = false;
-				
-				intersect = this.targets.get(0).intersect(e.getX(), e.getY());
-				if(intersect == true && player.getAmmo()>0){
-					if(SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 1) {
-						if(player.getAmmo()>0) {
-							updateScore();
-						}
+			boolean intersect = false;
+			
+			intersect = this.targets.get(0).intersect(e.getX(), e.getY());
+			if(intersect == true && player.getAmmo()>0){
+				if(SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 1) {
+					if(player.getAmmo()>0) {
+						updateScore();
 					}
-					clearTarget();
-					radius = Math.abs(rand.nextInt())%11+40;
-					speed = Math.abs(rand.nextInt())%4+5;
-					makeTarget(color[rand.nextInt(t)]);
 				}
-				player.useAmmo();   		
+				clearTarget();
+				radius = Math.abs(rand.nextInt())%11+40;
+				speed = Math.abs(rand.nextInt())%4+5;
+				makeTarget(color[rand.nextInt(t)]);
 			}
+			player.useAmmo();   		
 			repaint();
 		}else if(gameState == STATE.Menu){
 			if(GamePanel.gameState == STATE.Menu){
@@ -181,5 +210,28 @@ public class GamePanel extends JPanel implements MouseListener{
         // TODO Auto-generated method stub
         
     }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(gameState==STATE.Game) {
+			char key = e.getKeyChar();			
+			if(key=='r'||key=='R') {
+				player.reloadAmmo();
+			}
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

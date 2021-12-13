@@ -8,7 +8,7 @@ public class Main {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				JFrame frame = new JFrame("Bouncing Ball");
+				JFrame frame = new JFrame("AIM BOT");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setContentPane(new GamePanel());
 				frame.pack();

@@ -15,6 +15,10 @@ public class Score {
         this.width = width;
         this.height = heigth;
     }
+    
+    public int getScore() {
+    	return this.score;
+    }
 
     public void setScore(int score){
         this.score = score;
