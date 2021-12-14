@@ -37,6 +37,8 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 	public static final int WIDTH = 500, HEIGHT = 500;
 	public static STATE gameState = STATE.Menu;
     
+	private final SoundLoader reloadSound = new SoundLoader("reload.wav");
+	
     public GamePanel() {
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -104,8 +106,12 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
     public void startThread() {
 		Thread gameThread = new Thread() {
 			public void run() {
-				
 				while (true) {
+					if(player.getAmmo()==0) {
+						reloadSound.playLoopSound(1);
+					} else {
+						reloadSound.stopSound();	
+					}
 					if(time<0) {
 						GamePanel.gameState = STATE.Over;
 						repaint();
