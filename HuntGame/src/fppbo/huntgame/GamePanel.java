@@ -27,13 +27,11 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 	private Menu menu;
 	private Timer timer;
 	private Over over;
+	private int score;
 	private int time;
-    private int radius;
-	private int speed;
 
 	private int t = 2; // banyak warna
 	private Color[] color = { Color.GREEN, Color.RED};
-	private int score = 0;
 	private Random rand;
 
 	public static final int WIDTH = 500, HEIGHT = 500;
@@ -42,15 +40,8 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
     public GamePanel() {
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-		this.targets= new ArrayList<Target>();
 		rand = new Random();
-		radius = rand.nextInt()%21+30;
-		speed = rand.nextInt()%26+5;
-
-		makeTarget(color[rand.nextInt(t)]);
-		
 		menu = new Menu();
-		time = 60;
 		
         this.addMouseListener(this);
         this.addKeyListener(this);
@@ -63,6 +54,16 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 		over = new Over(scores);
         player = new Player("Anto", scores, WIDTH, HEIGHT);
         timer = new Timer();
+
+		score = 0;
+		time = 60;
+		targets = new ArrayList<Target>();
+
+		for(int i=targets.size(); i>0; i--){
+			clearTarget();
+		}
+		makeTarget(color[rand.nextInt(t)]);
+
         timer.scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
@@ -76,16 +77,17 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 	}
 
     private void makeTarget(Color color) {
-		Random rand = new Random();
+		int radius = Math.abs(rand.nextInt())%11+40;
+		int speed = Math.abs(rand.nextInt())%4+5;
 		int x = rand.nextInt(WIDTH - radius * 2 - 20) + radius + 10;
 		int y = rand.nextInt(HEIGHT - radius * 2 - 20) + radius + 10;
 		int angleInDegree = rand.nextInt(360);
 
-		this.targets.add(new Target(x, y, radius, speed, angleInDegree, color));
+		targets.add(new Target(x, y, radius, speed, angleInDegree, color));
 	}
 
     private void clearTarget(){
-        this.targets.remove(0);
+        targets.remove(0);
     }
 
     private void updateScore(){
@@ -184,15 +186,12 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 					}
 				}
 				clearTarget();
-				radius = Math.abs(rand.nextInt())%11+40;
-				speed = Math.abs(rand.nextInt())%4+5;
 				makeTarget(color[rand.nextInt(t)]);
 			}
 			player.useAmmo();   		
 			repaint();
 		}else if(gameState == STATE.Menu){
 			if(GamePanel.gameState == STATE.Menu){
-				
 				
 				if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 225, 150, 50) == true){
 					GamePanel.gameState = STATE.Game;
@@ -201,6 +200,15 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 				}else if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 325, 150, 50) == true){
 					System.exit(0);
 				}
+			}
+		}else if(gameState == STATE.Over){
+			if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, GamePanel.HEIGHT/2 + 30, 150, 40) == true){
+				GamePanel.gameState = STATE.Game;
+				Init();
+				startThread();
+			}else if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, GamePanel.HEIGHT/2 + 80, 150, 40) == true){
+				GamePanel.gameState = STATE.Menu;
+				repaint();
 			}
 		}
     }

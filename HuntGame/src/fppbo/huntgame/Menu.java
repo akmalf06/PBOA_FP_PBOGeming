@@ -11,14 +11,14 @@ public class Menu{
 
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
-        g.fillRect(1, 1, GamePanel.WIDTH, GamePanel.HEIGHT);
+        g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 
         g.setColor(Color.WHITE);
         g.setFont(TitleFont);
         g.drawString("AIM BOT", GamePanel.WIDTH/2 - 100, 150);
 
-        Button.makeButton("PLAY", GamePanel.WIDTH/2 - 75, 225, 150, 50, g);
-        Button.makeButton(" EXIT", GamePanel.WIDTH/2 - 75, 325, 150, 50, g);
+        Button.bigButton("PLAY", GamePanel.WIDTH/2 - 75, 225, 150, 50, g);
+        Button.bigButton(" EXIT", GamePanel.WIDTH/2 - 75, 325, 150, 50, g);
 	}
 
     public boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height){
