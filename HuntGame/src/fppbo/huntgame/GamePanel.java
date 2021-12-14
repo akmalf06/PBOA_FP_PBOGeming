@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 	private Player player;
     private Score scores;
 	private Menu menu;
+	private Tutorial tutorial;
 	private Timer timer;
 	private Over over;
 	private int score;
@@ -44,6 +45,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 
 		rand = new Random();
 		menu = new Menu();
+		tutorial = new Tutorial();
 		
         this.addMouseListener(this);
         this.addKeyListener(this);
@@ -158,7 +160,9 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 			}
 		}else if(gameState == STATE.Menu){
 			menu.draw(g);
-		} 
+		} else if(gameState == STATE.Tutorial) {
+			tutorial.draw(g);
+		}
 	}
 
     @Override
@@ -196,17 +200,19 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 			player.useAmmo();   		
 			repaint();
 		}else if(gameState == STATE.Menu){
-			if(GamePanel.gameState == STATE.Menu){
-				
-				if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 225, 150, 50) == true){
-					GamePanel.gameState = STATE.Game;
-					Init();
-					startThread();
-				}else if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 325, 150, 50) == true){
-					System.exit(0);
-				}
+			if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 225, 150, 50) == true){
+				GamePanel.gameState = STATE.Tutorial;
+				repaint();
+			}else if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, 325, 150, 50) == true){
+				System.exit(0);
 			}
-		}else if(gameState == STATE.Over){
+		} else if(gameState == STATE.Tutorial) {
+			if(tutorial.mouseOver(e.getX(), e.getY(), 175, 370, 150, 50)) {
+				GamePanel.gameState = STATE.Game;
+				Init();
+				startThread();
+			}
+		} else if(gameState == STATE.Over){
 			if(menu.mouseOver(e.getX(), e.getY(), GamePanel.WIDTH/2 - 75, GamePanel.HEIGHT/2 + 30, 150, 40) == true){
 				GamePanel.gameState = STATE.Game;
 				Init();
