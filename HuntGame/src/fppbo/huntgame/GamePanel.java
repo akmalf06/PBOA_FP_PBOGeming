@@ -54,8 +54,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener{
 		over = new Over(scores);
         player = new Player("Anto", scores, WIDTH, HEIGHT);
         timer = new Timer();
-
-		score = 0;
+        scores.setScore(0);
 		time = 60;
 		targets = new ArrayList<Target>();
 
