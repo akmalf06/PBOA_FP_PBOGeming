@@ -7,6 +7,12 @@ import java.awt.Graphics;
 public class Tutorial {
 	private final Font titleFont = new Font("Helvetica", Font.BOLD, 42);
 	private final Font textFont = new Font("Helvetica", Font.PLAIN, 16);
+	private Button nextButton;
+	
+	public Tutorial() {
+		this.nextButton = new Button("NEXT", 175, 380, 150, 50, new Font("Helvetica", Font.BOLD, 30));
+	}
+	
 	public void draw(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
@@ -29,15 +35,6 @@ public class Tutorial {
 		g.drawString("menggunakan satu ammo", 160, 301);
 		g.drawString("5.", 139, 330);
 		g.drawString("Tekan R untuk reload ammo", 160, 330);
-		
-		Button.bigButton("NEXT", 175, 380, 150, 50, g);
+		this.nextButton.draw(g);
 	}
-	
-    public boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height){
-        if((mouseX > x && mouseX < x + width) && (mouseY > y && mouseY < y + height)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }
