@@ -1,4 +1,4 @@
-package fppbo.huntgame;
+package fppbo.huntgame.Enums;
 
 public enum STATE {
 

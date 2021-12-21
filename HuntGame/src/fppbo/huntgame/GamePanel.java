@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import fppbo.huntgame.Enums.STATE;
+
 public class GamePanel extends JPanel implements MouseListener, KeyListener{
 
     private static final int REFRESH_RATE = 30;

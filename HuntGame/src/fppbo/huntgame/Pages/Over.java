@@ -1,9 +1,13 @@
-package fppbo.huntgame;
+package fppbo.huntgame.Pages;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+
+import fppbo.huntgame.GamePanel;
+import fppbo.huntgame.Components.Button;
+import fppbo.huntgame.Components.Player;
 
 public class Over {
 	private Player player;

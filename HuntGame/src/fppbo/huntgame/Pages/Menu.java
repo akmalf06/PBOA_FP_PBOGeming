@@ -1,8 +1,11 @@
-package fppbo.huntgame;
+package fppbo.huntgame.Pages;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
+import fppbo.huntgame.GamePanel;
+import fppbo.huntgame.Components.Button;
 
 
 public class Menu{

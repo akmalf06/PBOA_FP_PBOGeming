@@ -1,4 +1,4 @@
-package fppbo.huntgame;
+package fppbo.huntgame.Services;
 
 import java.io.File;
 import java.io.IOException;

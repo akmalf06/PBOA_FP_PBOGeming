@@ -1,4 +1,4 @@
-package fppbo.huntgame;
+package fppbo.huntgame.Components;
 
 import java.awt.*;
 import java.util.Random;

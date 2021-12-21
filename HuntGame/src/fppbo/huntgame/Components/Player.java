@@ -1,6 +1,8 @@
-package fppbo.huntgame;
+package fppbo.huntgame.Components;
 
 import java.awt.*;
+
+import fppbo.huntgame.GamePanel;
 
 public class Player {
 	private Score score;

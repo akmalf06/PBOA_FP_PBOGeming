@@ -9,6 +9,14 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fppbo.huntgame.Components.Player;
+import fppbo.huntgame.Components.Target;
+import fppbo.huntgame.Components.TargetArea;
+import fppbo.huntgame.Pages.Menu;
+import fppbo.huntgame.Pages.Over;
+import fppbo.huntgame.Pages.Tutorial;
+import fppbo.huntgame.Services.SoundLoader;
+
 public class Game {
 	private Player player;
 	private Menu menu;
@@ -104,7 +112,7 @@ public class Game {
 		}
 		makeTarget(color[rand.nextInt(t)]);
 		this.timer = new Timer();
-		time = 5;
+		time = 60;
 
         timer.scheduleAtFixedRate(new TimerTask() {
 			
