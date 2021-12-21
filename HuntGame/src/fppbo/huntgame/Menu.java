@@ -16,17 +16,11 @@ public class Menu{
         g.setColor(Color.WHITE);
         g.setFont(TitleFont);
         g.drawString("AIM BOT", GamePanel.WIDTH/2 - 100, 150);
-
-        Button.bigButton("PLAY", GamePanel.WIDTH/2 - 75, 225, 150, 50, g);
-        Button.bigButton(" EXIT", GamePanel.WIDTH/2 - 75, 325, 150, 50, g);
-	}
-
-    public boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height){
-        if((mouseX > x && mouseX < x + width) && (mouseY > y && mouseY < y + height)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
+        
+        Button button1 = new Button("PLAY", GamePanel.WIDTH/2 - 75, 225, 150, 50, new Font("Helvetica", Font.BOLD, 30));
+        Button button2 = new Button("EXIT", GamePanel.WIDTH/2 - 75, 325, 150, 50, new Font("Helvetica", Font.BOLD, 30));
+        
+        button1.draw(g);
+        button2.draw(g);
+	}    
 }

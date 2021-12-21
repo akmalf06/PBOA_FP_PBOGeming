@@ -2,24 +2,42 @@ package fppbo.huntgame;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class Button {
-	private static final Font big = new Font("Helvetica", Font.BOLD, 30);
-    private static final Font small = new Font("Helvetica", Font.BOLD,15);
-
-	public static void bigButton(String button, int x, int y, int width, int height, Graphics g){
-        g.setColor(Color.WHITE);
-        g.drawRect(x, y, width, height);
-        g.setFont(big);
-        g.drawString(button, x+35, y+35);
+    private String text;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private Font f;
+    
+    
+    public Button (String text, int x, int y, int width, int height, Font f) {
+    	this.text = text;
+    	this.x = x;
+    	this.y = y;
+    	this.width = width;
+    	this.height = height;
+    	this.f = f; 
     }
 
-    public static void smallButton(String button, int x, int y, int width, int height, Graphics g){
+    public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.drawRect(x, y, width, height);
-        g.setFont(small);
-        g.drawString(button, x+32, y+25);
+        FontMetrics metrics = g.getFontMetrics(f);
+        int x = this.x + (this.width - metrics.stringWidth(text)) / 2;
+        int y = this.y + ((this.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g.setFont(f);
+        g.drawString(text, x, y);
     }
     
+    public boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height){
+        if((mouseX > x && mouseX < x + width) && (mouseY > y && mouseY < y + height)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
