@@ -33,7 +33,7 @@ public class Button {
         g.drawString(text, x, y);
     }
     
-    public boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height){
+    public boolean mouseOver(int mouseX, int mouseY){
         if((mouseX > x && mouseX < x + width) && (mouseY > y && mouseY < y + height)){
             return true;
         }else{

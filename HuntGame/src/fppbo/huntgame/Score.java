@@ -7,13 +7,9 @@ public class Score {
     private final Font smallFont = new Font("Helvetica", Font.BOLD, 14);
 
     private int score;
-    private int width;
-    private int height;
 
-    public Score(int score, int width, int heigth){
-        this.score = score;
-        this.width = width;
-        this.height = heigth;
+    public Score(){
+        this.score = 0;
     }
     
     public int getScore() {
@@ -30,7 +26,7 @@ public class Score {
         g.setFont(smallFont);
         g.setColor(new Color(96, 128, 255));
         s = "Score: " + score;
-        g.drawString(s, this.width-100, this.height-10);
+        g.drawString(s, GamePanel.WIDTH-100, GamePanel.HEIGHT-10);
 	}
     
 }
