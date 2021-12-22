@@ -19,7 +19,7 @@ public class Tutorial {
 	public Button getNextButton() {
 		return nextButton;
 	}
-
+ 
 	public void draw(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
