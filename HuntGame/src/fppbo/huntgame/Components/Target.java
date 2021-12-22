@@ -4,9 +4,9 @@ import java.awt.*;
 import java.util.Random;
 
 public class Target {
-    float x, y;
-	float speedX, speedY;
-	float radius;
+    private float x, y;
+	private float speedX, speedY;
+	private float radius;
 	private Color color;
 
 	public Target(float x, float y, float radius, float speed, float angleInDegree, Color color) {
@@ -28,10 +28,10 @@ public class Target {
 	}
 
 	public void edgeCollide(TargetArea box) {
-		float targetMinX = box.minX + radius;
-		float targetMinY = box.minY + radius;
-		float targetMaxX = box.maxX - radius;
-		float targetMaxY = box.maxY - radius;
+		float targetMinX = box.getMinX() + radius;
+		float targetMinY = box.getMinY() + radius;
+		float targetMaxX = box.getMaxX() - radius;
+		float targetMaxY = box.getMaxY() - radius;
 
 		x += speedX;
 		y += speedY;
