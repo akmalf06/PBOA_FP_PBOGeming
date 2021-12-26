@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fppbo.huntgame.Components.Background;
 import fppbo.huntgame.Components.Player;
 import fppbo.huntgame.Components.Target;
 import fppbo.huntgame.Components.TargetArea;
@@ -18,6 +19,7 @@ import fppbo.huntgame.Pages.Tutorial;
 import fppbo.huntgame.Services.SoundLoader;
 
 public class Game {
+	private Background bg;
 	private Player player;
 	private Menu menu;
 	private TargetArea box;
@@ -28,8 +30,8 @@ public class Game {
 	private final SoundLoader reloadSound = new SoundLoader("reload.wav");
 	private final Random rand = new Random();
 	public List<Target> targets;
-	private final int t = 2; // banyak warna
-	private final Color[] color = { Color.GREEN, Color.RED};
+	private final int t = 5; // banyak jenis target
+	private final String[] targetType = {"bomb", "chicken", "sheep", "pig", "bear"};
 	
 	public Game() {
 		this.player = new Player();
@@ -38,20 +40,21 @@ public class Game {
 		this.tutorial = new Tutorial();
 		this.over = new Over(player);
 		this.targets = new ArrayList<Target>();
+		this.bg = new Background();
 	}
 	
 	public Player getPlayer() {
 		return player;
 	}
 
-	public void makeTarget(Color color) {
+	public void makeTarget(String targetType) {
 		int radius = Math.abs(rand.nextInt())%11+40;
 		int speed = Math.abs(rand.nextInt())%4+5;
 		int x = rand.nextInt(GamePanel.WIDTH - radius * 2 - 20) + radius + 10;
 		int y = rand.nextInt(GamePanel.HEIGHT - radius * 2 - 20) + radius + 10;
 		int angleInDegree = rand.nextInt(360);
 
-		targets.add(new Target(x, y, radius, speed, angleInDegree, color));
+		targets.add(new Target(x, y, radius, speed, angleInDegree, targetType));
 	}
 	
 	public void updateScore(){
@@ -87,7 +90,7 @@ public class Game {
 				updateScore();
 			}
 			targets.remove(0);
-			makeTarget(color[rand.nextInt(t)]);
+			makeTarget(targetType[rand.nextInt(t)]);
 		}
 		player.useAmmo();
 	}
@@ -110,7 +113,7 @@ public class Game {
 		for(int i=targets.size(); i>0; i--){
 			targets.remove(0);
 		}
-		makeTarget(color[rand.nextInt(t)]);
+		makeTarget(targetType[rand.nextInt(t)]);
 		this.timer = new Timer();
 		time = 60;
 
@@ -127,6 +130,7 @@ public class Game {
 	}
 	
 	public void gameStart(Graphics g) {
+		bg.draw(g);
 		box.draw(g);
 		Font smallFont = new Font("Helvetica", Font.BOLD, 14);
 		g.setFont(smallFont);

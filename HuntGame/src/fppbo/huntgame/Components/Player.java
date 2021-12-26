@@ -37,11 +37,17 @@ public class Player {
 	}
 	
 	public void updateScore(Target target){
-        if(target.getColor() == Color.GREEN){
+        if(target.getTargetType() == "bomb"){
+        	this.getScore().setScore(this.getScoreValue()-5);
+        }else if(target.getTargetType() == "chicken"){
         	this.getScore().setScore(this.getScoreValue()+1);
-        }else{
-        	this.getScore().setScore(this.getScoreValue()-1);
-        }
+		}else if(target.getTargetType() == "sheep"){
+        	this.getScore().setScore(this.getScoreValue()+2);
+		}else if(target.getTargetType() == "pig"){
+        	this.getScore().setScore(this.getScoreValue()+3);
+		}else if(target.getTargetType() == "bear"){
+        	this.getScore().setScore(this.getScoreValue()+4);
+		}
     }
 
     public void draw(Graphics g) {

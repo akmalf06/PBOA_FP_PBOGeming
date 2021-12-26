@@ -34,7 +34,7 @@ public class SoundLoader {
 	
 	public void setAudioInputStream(String fileName) {
 		try {
-			audioInputStream = AudioSystem.getAudioInputStream(new File("soundEffect/"+fileName).getAbsoluteFile());
+			audioInputStream = AudioSystem.getAudioInputStream(new File("resources/soundEffect/"+fileName).getAbsoluteFile());
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

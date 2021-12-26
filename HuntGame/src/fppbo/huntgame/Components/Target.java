@@ -1,30 +1,34 @@
 package fppbo.huntgame.Components;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.util.Random;
+
+import fppbo.huntgame.Services.ImageLoader;
 
 public class Target {
     private float x, y;
 	private float speedX, speedY;
 	private float radius;
-	private Color color;
+	private ImageLoader target;
+	private String targetType;
 
-	public Target(float x, float y, float radius, float speed, float angleInDegree, Color color) {
+	public Target(float x, float y, float radius, float speed, float angleInDegree, String targetType) {
 		this.x = x;
 		this.y = y;
 		this.speedX = (float) (speed * Math.cos(Math.toRadians(angleInDegree)));
 		this.speedY = (float) (-speed * (float) Math.sin(Math.toRadians(angleInDegree)));
 		this.radius = radius;
-		this.color = color;
+		this.targetType = targetType;
+
+		target = new ImageLoader(targetType+".png");
 	}
 
-    public Color getColor(){
-        return this.color;
-    }
+	public String getTargetType(){
+		return targetType;
+	}
 
 	public void draw(Graphics g) {
-		g.setColor(color);
-		g.fillOval((int) (x - radius), (int) (y - radius), (int) (2 * radius), (int) (2 * radius));
+		target.draw(g, (int) (x - radius), (int) (y - radius), (int) (2 * radius), (int) (2 * radius));
 	}
 
 	public void edgeCollide(TargetArea box) {

@@ -4,16 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import fppbo.huntgame.GamePanel;
+import fppbo.huntgame.Components.Background;
 import fppbo.huntgame.Components.Button;
 
 public class Tutorial {
 	private final Font titleFont = new Font("Helvetica", Font.BOLD, 42);
 	private final Font textFont = new Font("Helvetica", Font.PLAIN, 16);
 	private Button nextButton;
+	private Background bg;
 	
 	public Tutorial() {
-		this.nextButton = new Button("NEXT", 175, 380, 150, 50, new Font("Helvetica", Font.BOLD, 30));
+		nextButton = new Button("NEXT", 175, 380, 150, 50, new Font("Helvetica", Font.BOLD, 30));
+		bg = new Background();
 	}
 	
 	public Button getNextButton() {
@@ -21,8 +23,7 @@ public class Tutorial {
 	}
  
 	public void draw(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+		bg.draw(g);
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
 		g.drawString("HOW TO PLAY", 114, 74);
