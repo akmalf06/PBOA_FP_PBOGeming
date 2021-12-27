@@ -1,23 +1,23 @@
 package fppbo.huntgame.Components;
 
-import java.awt.Color;
 import java.awt.Graphics;
+
+import fppbo.huntgame.Services.ImageLoader;
 
 public class TargetArea {
     private int minX;
 	private int maxX;
 	private int minY;
 	private int maxY;
-	private Color colorFilled;
-	private Color colorBorder;
+	private ImageLoader targetArea;
 
-	public TargetArea(int x, int y, int width, int height, Color colorFilled, Color colorBorder) {
+	public TargetArea(int x, int y, int width, int height) {
 		this.minX = x;
 		this.minY = y;
 		this.maxX = x + width - 1;
 		this.maxY = y + height - 1;
-		this.colorFilled = colorFilled;
-		this.colorBorder = colorBorder;
+
+		targetArea = new ImageLoader("targetArea.png");
 	}
 
 	public int getMinX() {
@@ -44,9 +44,6 @@ public class TargetArea {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(colorFilled);
-		g.fillRect(minX, minY, maxX - minX - 1, maxY - minY - 1);
-		g.setColor(colorBorder);
-		g.drawRect(minX, minY, maxX - minX - 1, maxY - minY - 1);
+		targetArea.draw(g, minX, minY,  maxX - minX - 1, maxY - minY - 1);
 	}
 }

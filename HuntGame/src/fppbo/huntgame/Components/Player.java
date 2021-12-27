@@ -53,9 +53,9 @@ public class Player {
     public void draw(Graphics g) {
 		String s;
         g.setFont(smallFont);
-        g.setColor(new Color(96, 128, 255));
+        g.setColor(new Color(67, 221, 226));
         s = "Ammo: " + this.ammo;
-        g.drawString(s, 30, GamePanel.HEIGHT-10);
+        g.drawString(s, 30, GamePanel.HEIGHT-25);
         score.draw(g);
 	}
 }

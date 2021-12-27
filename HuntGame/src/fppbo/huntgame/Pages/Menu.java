@@ -1,12 +1,12 @@
 package fppbo.huntgame.Pages;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
 import fppbo.huntgame.GamePanel;
 import fppbo.huntgame.Components.Background;
 import fppbo.huntgame.Components.Button;
+import fppbo.huntgame.Services.ImageLoader;
 
 
 public class Menu{
@@ -15,19 +15,18 @@ public class Menu{
     private Button playButton;
     private Button exitButton;
     private Background bg;
+    private ImageLoader gameTittle;
     
     public Menu() {
-        playButton = new Button("PLAY", GamePanel.WIDTH/2 - 75, 225, 150, 50, new Font("Helvetica", Font.BOLD, 30));
-        exitButton = new Button("EXIT", GamePanel.WIDTH/2 - 75, 325, 150, 50, new Font("Helvetica", Font.BOLD, 30));
+        playButton = new Button("PLAY", GamePanel.WIDTH/2 - 85, 275, 170, 50, new Font("Helvetica", Font.BOLD, 30));
+        exitButton = new Button("EXIT", GamePanel.WIDTH/2 - 85, 345, 170, 50, new Font("Helvetica", Font.BOLD, 30));
         bg = new Background();
+        gameTittle = new ImageLoader("gameTittle.png");
     }
 
     public void draw(Graphics g){
         bg.draw(g);
-        
-        g.setColor(Color.WHITE);
-        g.setFont(TitleFont);
-        g.drawString("AIM BOT", GamePanel.WIDTH/2 - 100, 150);
+        gameTittle.draw(g, 75, 100, 350, 100);
         
         playButton.draw(g);
         exitButton.draw(g);

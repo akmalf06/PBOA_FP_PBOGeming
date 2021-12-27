@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import fppbo.huntgame.Services.ImageLoader;
+
 public class Button {
     private String text;
     private int x;
@@ -12,6 +14,7 @@ public class Button {
     private int width;
     private int height;
     private Font f;
+    private ImageLoader button;
     
     
     public Button (String text, int x, int y, int width, int height, Font f) {
@@ -20,15 +23,18 @@ public class Button {
     	this.y = y;
     	this.width = width;
     	this.height = height;
-    	this.f = f; 
+    	this.f = f;
+        button = new ImageLoader("button.png");
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.drawRect(x, y, width, height);
+        button.draw(g, x, y, width, height);
+
         FontMetrics metrics = g.getFontMetrics(f);
         int x = this.x + (this.width - metrics.stringWidth(text)) / 2;
         int y = this.y + ((this.height - metrics.getHeight()) / 2) + metrics.getAscent();
+
+        g.setColor(new Color(67, 221, 226));
         g.setFont(f);
         g.drawString(text, x, y);
     }

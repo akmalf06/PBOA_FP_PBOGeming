@@ -36,7 +36,7 @@ public class Game {
 	public Game() {
 		this.player = new Player();
 		this.menu = new Menu();
-		this.box = new TargetArea(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT-30, Color.BLACK, Color.WHITE);
+		this.box = new TargetArea(0+25, 0+25, GamePanel.WIDTH-50, GamePanel.HEIGHT-80);
 		this.tutorial = new Tutorial();
 		this.over = new Over(player);
 		this.targets = new ArrayList<Target>();
@@ -115,7 +115,7 @@ public class Game {
 		}
 		makeTarget(targetType[rand.nextInt(t)]);
 		this.timer = new Timer();
-		time = 60;
+		time = 5;
 
         timer.scheduleAtFixedRate(new TimerTask() {
 			
@@ -134,8 +134,8 @@ public class Game {
 		box.draw(g);
 		Font smallFont = new Font("Helvetica", Font.BOLD, 14);
 		g.setFont(smallFont);
-        g.setColor(new Color(96, 128, 255));
-		g.drawString("Time: " + time, GamePanel.WIDTH/2-30, GamePanel.HEIGHT - 10);
+        g.setColor(new Color(67, 221, 226));
+		g.drawString("Time: " + time, GamePanel.WIDTH/2-30, GamePanel.HEIGHT - 25);
 		for (Target target : targets) {
 			target.draw(g);
 		}

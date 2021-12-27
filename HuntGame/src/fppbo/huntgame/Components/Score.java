@@ -26,9 +26,9 @@ public class Score {
 		String s;
 
         g.setFont(smallFont);
-        g.setColor(new Color(96, 128, 255));
+        g.setColor(new Color(67, 221, 226));
         s = "Score: " + score;
-        g.drawString(s, GamePanel.WIDTH-100, GamePanel.HEIGHT-10);
+        g.drawString(s, GamePanel.WIDTH-90, GamePanel.HEIGHT-25);
 	}
     
 }
